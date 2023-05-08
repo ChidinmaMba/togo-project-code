@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta name="description" content="This is food truck finder and reviews web application.">
+        <meta name="authors" content="Chidinma M, Patricia L, Camille C">
+
+        <title>ToGo</title>
+
+        <!-- api gateway generated sdk -->
+        <script type="text/javascript" src="js/lib/axios/dist/axios.standalone.js"></script>
+        <script type="text/javascript" src="js/lib/CryptoJS/rollups/hmac-sha256.js"></script>
+        <script type="text/javascript" src="js/lib/CryptoJS/rollups/sha256.js"></script>
+        <script type="text/javascript" src="js/lib/CryptoJS/components/hmac.js"></script>
+        <script type="text/javascript" src="js/lib/CryptoJS/components/enc-base64.js"></script>
+        <script type="text/javascript" src="js/lib/url-template/url-template.js"></script>
+        <script type="text/javascript" src="js/lib/apiGatewayCore/sigV4Client.js"></script>
+        <script type="text/javascript" src="js/lib/apiGatewayCore/apiGatewayClient.js"></script>
+        <script type="text/javascript" src="js/lib/apiGatewayCore/simpleHttpClient.js"></script>
+        <script type="text/javascript" src="js/lib/apiGatewayCore/utils.js"></script>
+        <script type="text/javascript" src="js/apigClient.js"></script>
+        <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2p1CgabvwDc3fTKUS9v3-a3f7nP7LAJE&callback=initMap"></script>
+        <script>
+            let map;
+            var curr_lon = null;
+            var curr_lat = null;
+            const googleAPIKey = 'AIzaSyC2p1CgabvwDc3fTKUS9v3-a3f7nP7LAJE';
+            async function getUserCoords(){
+                fetch('https://www.googleapis.com/geolocation/v1/geolocate?key=' + googleAPIKey, {
+                    method: 'POST',
+                })
+                .then(response => response.json())
+                .then(data => {
+                    curr_lat = (data.location.lat).toFixed(4);
+                    curr_lon = (data.location.lng).toFixed(4);
+                    console.log('Latitude:', curr_lat, 'Longitude:', curr_lon)
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+                
+            }
+            async function initMap() {
+                // Get user lat and long
+                // lat = ...
+                // long = ...
+                // var locations
+                // Get 10 closest food trucks near user in user vicinity 
+                // foodTrucks = [(foodTruck object),]
+                // var additionalParams = {latitiude:lat, longitude:long, radius:15};
+                // apigClient.businessGet(params, body, additionalParams)
+                //     .then(function(result){
+                            // for(var i = 0; i < foodTrucks.length; i++) {
+                            //     locations.push({lat:foodTrucks[i].latitude, long:foodTrucks[i].longitude})
+                            // }
+                //     })
+                //     .catch( function(result){
+                //         // This is where you would put an error callback
+                //     });  
+
+                // Create a map object and center it on a location
+                
+            
+                
+
+                var locations
+                // Get 10 closest food trucks near user in user vicinity 
+                foodTrucks = [];
+                
+                getBusinesses();
+                // Create markers for each location
+                var locations = [
+                {title: 'Golden Gate Bridge', lat: 37.8199, lng: -122.4783},
+                {title: 'Fisherman\'s Wharf', lat: 37.8080, lng: -122.4177},
+                {title: 'Lombard Street', lat: 37.8021, lng: -122.4184}
+                ];   
+            }
+            // initMap();
+        </script>
+        <style>
+            #map {
+                height: 500px;
+                width: 70%;
+                float: left;
+                display: inline-block;
+            }
+            #business-info {
+                overflow-y: auto;
+                width: 30%;
+                height: 500px;
+                float: left;
+                display: inline-block;
+                background-color: grey;
+            }
+        </style>
+    </head>
+    <body onload="getReviews()">
+        <div style="text-align:center">
+            <h1>ToGo</h1>
+            <h2>Welcome Back</h2>
+            <button type="button" id="logoutBtn">Logout</button>
+            <h3>My Reviews</h3>
+            <button type="button" id="writeReviewBtn">Write Review</button>
+            <div id="listOfReviews">
+            </div>
+        </div>
+        <br>
+        <br>
+        <div>
+            <div id="map"></div>
+            <div id="business-info">
+                <h1 id="business_name"></h1>
+                <h2 id="cuisine"></h2>
+                <h3 id="email"></h3>
+            </div>
+        </div>
+        <script src="js/home.js"></script>
+    </body>
+</html>

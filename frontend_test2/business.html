@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta name="description" content="This is food truck finder and reviews web application.">
+        <meta name="authors" content="Chidinma M, Patricia L, Camille C">
+
+        <title>ToGo</title>
+
+        <!-- api gateway generated sdk -->
+        <script type="text/javascript" src="js/lib/axios/dist/axios.standalone.js"></script>
+        <script type="text/javascript" src="js/lib/CryptoJS/rollups/hmac-sha256.js"></script>
+        <script type="text/javascript" src="js/lib/CryptoJS/rollups/sha256.js"></script>
+        <script type="text/javascript" src="js/lib/CryptoJS/components/hmac.js"></script>
+        <script type="text/javascript" src="js/lib/CryptoJS/components/enc-base64.js"></script>
+        <script type="text/javascript" src="js/lib/url-template/url-template.js"></script>
+        <script type="text/javascript" src="js/lib/apiGatewayCore/sigV4Client.js"></script>
+        <script type="text/javascript" src="js/lib/apiGatewayCore/apiGatewayClient.js"></script>
+        <script type="text/javascript" src="js/lib/apiGatewayCore/simpleHttpClient.js"></script>
+        <script type="text/javascript" src="js/lib/apiGatewayCore/utils.js"></script>
+        <script type="text/javascript" src="js/apigClient.js"></script>
+    </head>
+    <body onload="getReviews()">
+        <div style="text-align:center">
+            <button type="button" id="logoutBtn">Logout</button>
+
+            <h3>Reviews</h3>
+            <div id="listOfReviews">
+            </div>
+        </div>
+                <form id="business-profile">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name"><br>
+
+            <div>Owner: </div>
+            <label for="owner_firstname">First Name:</label>
+            <input type="text" id="owner_firstname" name="owner_firstname"><br>
+
+            <label for="owner_lastname">Last Name:</label>
+            <input type="text" id="owner_lastname" name="owner_lastname"><br>
+          
+            <label for="cuisine">Cuisine:</label>
+            <input type="text" id="cuisine" name="cuisine"><br>
+          
+            <div>Location:</div>
+            <label for="loc-lon">Longitude: </label>
+            <input type="text" id="loc-lon" name="loc-lon" value=""><br>
+            <label for="loc-lat">Latitude: </label>
+            <input type="text" id="loc-lat" name="loc-lat" value=""><br>            
+          
+            <div>Operational Hours:</div>
+
+            <div>Sunday</div>
+            <label for="hrs_sun_is_open">Is Open? </label><br>
+            <input type="text" id="hrs_sun_is_open" name="hrs_sun_is_open"><br>
+            <label for="hrs_sun_open_time">Open Time: </label><br>
+            <input type="text" id="hrs_sun_open_time" name="hrs_sun_open_time"><br>
+            <label for="hrs_sun_close_time">Close Time: </label><br>
+            <input type="text" id="hrs_sun_close_time" name="hrs_sun_close_time"><br>      
+            
+            <div>Monday</div>
+            <label for="hrs_mon_is_open">Is Open? </label><br>
+            <input type="text" id="hrs_mon_is_open" name="hrs_mon_is_open"><br>
+            <label for="hrs_mon_open_time">Open Time: </label><br>
+            <input type="text" id="hrs_mon_open_time" name="hrs_mon_open_time"><br>
+            <label for="hrs_mon_open_time">Close Time: </label><br>
+            <input type="text" id="hrs_mon_close_time" name="hrs_mon_close_time"><br> 
+            
+            <div>Tuesday</div>
+            <label for="hrs_tue_is_open">Is Open? </label><br>
+            <input type="text" id="hrs_tue_is_open" name="hrs_tue_is_open"><br>
+            <label for="hrs_tue_open_time">Open Time: </label><br>
+            <input type="text" id="hrs_tue_open_time" name="hrs_tue_open_time"><br>
+            <label for="hrs_tue_close_time">Close Time: </label><br>
+            <input type="text" id="hrs_tue_close_time" name="hrs_tue_close_time"><br>  
+
+            <div>Wednesday</div>
+            <label for="hrs_wed_is_open">Is Open? </label><br>
+            <input type="text" id="hrs_wed_is_open" name="hrs_wed_is_open"><br>
+            <label for="hrs_wed_open_time">Open Time: </label><br>
+            <input type="text" id="hrs_wed_open_time" name="hrs_wed_open_time"><br>
+            <label for="hrs_wed_close_time">Close Time: </label><br>
+            <input type="text" id="hrs_wed_close_time" name="hrs_wed_close_time"><br>  
+
+            <div>Thursday</div>
+            <label for="hrs_thu_is_open">Is Open? </label><br>
+            <input type="text" id="hrs_thu_is_open" name="hrs_thu_is_open"><br>
+            <label for="hrs_thu_open_time">Open Time: </label><br>
+            <input type="text" id="hrs_thu_open_time" name="hrs_thu_open_time"><br>
+            <label for="hrs_thu_close_time">Close Time: </label><br>
+            <input type="text" id="hrs_thu_close_time" name="hrs_thu_close_time"><br>  
+
+            <div>Friday</div>
+            <label for="hrs_fri_is_open">Is Open? </label><br>
+            <input type="text" id="hrs_fri_is_open" name="hrs_fri_is_open"><br>
+            <label for="hrs_fri_open_time">Open Time: </label><br>
+            <input type="text" id="hrs_fri_open_time" name="hrs_fri_open_time"><br>
+            <label for="hrs_fri_close_time">Close Time: </label><br>
+            <input type="text" id="hrs_fri_close_time" name="hrs_fri_close_time"><br> 
+            
+            <div>Saturday</div>
+            <label for="hrs_sat_is_open">Is Open? </label><br>
+            <input type="text" id="hrs_sat_is_open" name="hrs_sat_is_open"><br>
+            <label for="hrs_sat_open_time">Open Time: </label><br>
+            <input type="text" id="hrs_sat_open_time" name="hrs_sat_open_time"><br>
+            <label for="hrs_sat_close_time">Close Time: </label><br>
+            <input type="text" id="hrs_sat_close_time" name="hrs_sat_close_time"><br>  
+          
+            <div>Menu:</div>
+            <label for="food-title">Food Title:</label><br>
+            <input type="text" id="food-title" name="food-title"><br>
+            <label for="price">Price:</label><br>
+            <input type="text" id="price" name="price"><br>
+            <label for="description">Description:</label><br>
+            <input type="text" id="description" name="description"><br>
+
+            <label for="food-title1">Food Title:</label><br>
+            <input type="text" id="food-title1" name="food-title1"><br>
+            <label for="price1">Price:</label><br>
+            <input type="text" id="price1" name="price1"><br>
+            <label for="description1">Description:</label><br>
+            <input type="text" id="description1" name="description1"><br>
+          
+            <button type="button" id="submit-business-btn" onclick="update_business()">Submit</button>
+          </form>
+        <script src="js/business.js"></script>
+    </body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta name="description" content="This is food truck finder and reviews web application.">
+        <meta name="authors" content="Chidinma M, Patricia L, Camille C">
+
+        <title>ToGo</title>
+
+        <!-- api gateway generated sdk -->
+        <script type="text/javascript" src="js/lib/axios/dist/axios.standalone.js"></script>
+        <script type="text/javascript" src="js/lib/CryptoJS/rollups/hmac-sha256.js"></script>
+        <script type="text/javascript" src="js/lib/CryptoJS/rollups/sha256.js"></script>
+        <script type="text/javascript" src="js/lib/CryptoJS/components/hmac.js"></script>
+        <script type="text/javascript" src="js/lib/CryptoJS/components/enc-base64.js"></script>
+        <script type="text/javascript" src="js/lib/url-template/url-template.js"></script>
+        <script type="text/javascript" src="js/lib/apiGatewayCore/sigV4Client.js"></script>
+        <script type="text/javascript" src="js/lib/apiGatewayCore/apiGatewayClient.js"></script>
+        <script type="text/javascript" src="js/lib/apiGatewayCore/simpleHttpClient.js"></script>
+        <script type="text/javascript" src="js/lib/apiGatewayCore/utils.js"></script>
+        <script type="text/javascript" src="js/apigClient.js"></script>
+    </head>
+    <body>
+        <h2>New Review</h2>
+        <form>
+            <label for="business">Business Email </label><br>
+            <input type="email" id="businessEmailInput" name="business"><br>
+            <label for="rating">Rating </label><br>
+            <input type="number" id="ratingInput" name="rating" min="1" max="5"><br>
+            <label for="description">Review Description</label><br>
+            <textarea id="descriptionInput" name="description" cols="50" rows="10"></textarea>
+            <div></div>
+            <button type="button" id="submitReviewBtn">Submit</button>
+            <button type="button" id="closeBtn">Close</button>
+        </form>
+        <script src="js/review.js"></script>
+    </body>
+</html>
